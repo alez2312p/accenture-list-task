@@ -1,4 +1,4 @@
-import { Injectable, signal, effect } from '@angular/core';
+import { Injectable, signal, effect, computed } from '@angular/core';
 import { Task } from '../models/task.model';
 
 @Injectable({
@@ -10,12 +10,19 @@ export class TaskService {
   private _tasks = signal<Task[]>(this.loadFromStorage());
   public tasks = this._tasks.asReadonly();
 
+  public filterByCategoryId = signal<string | null>(null);
+
+  public filteredTasks = computed(() => {
+    const categoryId = this.filterByCategoryId();
+    const allTasks = this._tasks();
+    return categoryId
+      ? allTasks.filter((t) => t.categoryId === categoryId)
+      : allTasks;
+  });
+
   constructor() {
     effect(() => {
-      localStorage.setItem(
-        this.STORAGE_KEY,
-        JSON.stringify(this._tasks()),
-      );
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this._tasks()));
     });
   }
 
@@ -65,5 +72,9 @@ export class TaskService {
     this._tasks.update((prev) =>
       prev.filter((t) => t.categoryId !== categoryId),
     );
+  }
+
+  setFilter(categoryId: string | null): void {
+    this.filterByCategoryId.set(categoryId);
   }
 }
