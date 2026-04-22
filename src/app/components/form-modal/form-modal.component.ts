@@ -1,5 +1,15 @@
 import { Component, input, output, computed } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonIcon, IonFooter, IonModal } from '@ionic/angular/standalone';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonButtons,
+  IonIcon,
+  IonFooter,
+  IonModal,
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { close } from 'ionicons/icons';
 
@@ -7,7 +17,17 @@ import { close } from 'ionicons/icons';
   selector: 'app-form-modal',
   templateUrl: './form-modal.component.html',
   styleUrls: ['./form-modal.component.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonButtons, IonIcon, IonFooter, IonModal],
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    IonButtons,
+    IonIcon,
+    IonFooter,
+    IonModal,
+  ],
 })
 export class FormModalComponent {
   isOpen = input(false);
@@ -19,7 +39,9 @@ export class FormModalComponent {
   save = output<void>();
   dismiss = output<void>();
 
-  finalSaveText = computed(() => this.isEditing() ? 'Actualizar' : this.saveText());
+  finalSaveText = computed(() =>
+    this.isEditing() ? 'Actualizar' : this.saveText(),
+  );
 
   constructor() {
     addIcons({ close });
