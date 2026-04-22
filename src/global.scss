@@ -34,4 +34,41 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+@import "@ionic/angular/css/palettes/dark.system.css";
+
+.custom-input {
+  margin-bottom: 16px;
+
+  &.md,
+  &.ios {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--ion-color-light);
+  }
+}
+
+.category-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  margin-right: 12px;
+}
+
+.category-picker-modal {
+  --height: 60%;
+  --border-radius: 16px 16px 0 0;
+}
+
+.category-picker-modal ion-content {
+  --background: var(--ion-item-background);
+}
+
+@media (min-width: 768px) {
+  .category-picker-modal {
+    --height: auto;
+    --width: 90%;
+    --max-width: 500px;
+    --border-radius: 16px;
+  }
+}

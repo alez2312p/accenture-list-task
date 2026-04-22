@@ -3,17 +3,6 @@ ion-modal {
   align-items: flex-end;
 }
 
-.custom-input {
-  margin-top: 10px;
-  --border-color: var(--ion-color-step-300, #d2d2d2);
-  --border-width: 1px;
-  --padding-start: 16px;
-}
-
-.custom-input.focused {
-  --border-color: var(--ion-color-primary);
-}
-
 @media (min-width: 768px) {
   ion-modal {
     --border-radius: 16px;
