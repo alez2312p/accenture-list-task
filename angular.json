@@ -124,6 +124,20 @@
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
+        },
+        "ionic-cordova-build": {
+          "builder": "@ionic/cordova-builders:cordova-build",
+          "options": {
+            "browserTarget": "app:build",
+            "platform": "android"
+          }
+        },
+        "ionic-cordova-serve": {
+          "builder": "@ionic/cordova-builders:cordova-serve",
+          "options": {
+            "cordovaBuildTarget": "app:serve",
+            "devServerTarget": "app:serve"
+          }
         }
       }
     }
