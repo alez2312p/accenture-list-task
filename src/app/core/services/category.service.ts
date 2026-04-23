@@ -1,5 +1,5 @@
 import { Injectable, signal, effect } from '@angular/core';
-import { Category } from '../models/category.model';
+import { Category } from '../../models/category.model';
 
 @Injectable({
   providedIn: 'root',

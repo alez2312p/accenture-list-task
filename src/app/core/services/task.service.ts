@@ -1,5 +1,5 @@
 import { Injectable, signal, effect, computed } from '@angular/core';
-import { Task } from '../models/task.model';
+import { Task } from '../../models/task.model';
 
 @Injectable({
   providedIn: 'root',

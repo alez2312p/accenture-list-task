@@ -14,8 +14,8 @@ import {
   IonButtons,
   IonInput,
 } from '@ionic/angular/standalone';
-import { CategoryService } from '../services/category.service';
-import { TaskService } from '../services/task.service';
+import { CategoryService } from '../core/services/category.service';
+import { TaskService } from '../core/services/task.service';
 import { Category } from '../models/category.model';
 import { ConfirmModalComponent } from '../components/confirm-modal/confirm-modal.component';
 import { FormModalComponent } from '../components/form-modal/form-modal.component';
@@ -59,10 +59,22 @@ export class CategoriesPage {
   categoryColor = signal('#3880ff');
 
   colorOptions = [
-    '#3880ff', '#5260ff', '#7c4dff', '#a355ff',
-    '#d75dca', '#e431a6', '#f74161', '#fa6674',
-    '#ff8f60', '#ffb347', '#ffc857', '#94d82d',
-    '#46c123', '#0ecd68', '#2bc6a7', '#20a8cd',
+    '#3880ff',
+    '#5260ff',
+    '#7c4dff',
+    '#a355ff',
+    '#d75dca',
+    '#e431a6',
+    '#f74161',
+    '#fa6674',
+    '#ff8f60',
+    '#ffb347',
+    '#ffc857',
+    '#94d82d',
+    '#46c123',
+    '#0ecd68',
+    '#2bc6a7',
+    '#20a8cd',
   ];
 
   isSaveDisabled = () => !this.categoryName().trim();
@@ -96,7 +108,11 @@ export class CategoriesPage {
 
     const editing = this.editingCategory();
     if (editing) {
-      this.categoryService.updateCategory(editing.id, name, this.categoryColor());
+      this.categoryService.updateCategory(
+        editing.id,
+        name,
+        this.categoryColor(),
+      );
     } else {
       this.categoryService.createCategory(name, this.categoryColor());
     }
