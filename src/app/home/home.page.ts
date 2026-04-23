@@ -16,14 +16,15 @@ import {
   IonButtons,
   IonModal,
 } from '@ionic/angular/standalone';
-import { TaskService } from '../services/task.service';
-import { CategoryService } from '../services/category.service';
+import { TaskService } from '../core/services/task.service';
+import { CategoryService } from '../core/services/category.service';
 import { Task } from '../models/task.model';
 import { Category } from '../models/category.model';
 import { ConfirmModalComponent } from '../components/confirm-modal/confirm-modal.component';
 import { TaskFormComponent } from '../components/task-form/task-form.component';
 import { addIcons } from 'ionicons';
 import { add, trash, create, chevronDown } from 'ionicons/icons';
+import { ConfigService } from '../core/services/config.service';
 
 @Component({
   selector: 'app-home',
@@ -52,6 +53,7 @@ import { add, trash, create, chevronDown } from 'ionicons/icons';
 export class HomePage {
   private taskService = inject(TaskService);
   private categoryService = inject(CategoryService);
+  public configService = inject(ConfigService);
 
   filteredTasks = this.taskService.filteredTasks;
   categories = this.categoryService.categories;
@@ -121,7 +123,11 @@ export class HomePage {
   onSaveTask(event: { title: string; categoryId: string | null }): void {
     const editing = this.editingTask();
     if (editing) {
-      this.taskService.updateTask(editing.id, event.title, event.categoryId || undefined);
+      this.taskService.updateTask(
+        editing.id,
+        event.title,
+        event.categoryId || undefined,
+      );
     } else {
       this.taskService.createTask(event.title, event.categoryId || undefined);
     }
@@ -129,6 +135,8 @@ export class HomePage {
   }
 
   getCategoryById(categoryId?: string): Category | undefined {
-    return categoryId ? this.categoryService.getCategoryById(categoryId) : undefined;
+    return categoryId
+      ? this.categoryService.getCategoryById(categoryId)
+      : undefined;
   }
 }

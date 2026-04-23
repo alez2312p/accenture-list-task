@@ -30,8 +30,12 @@ cd accenture-list-task
 # Instalar dependencias
 npm install
 
-# Instalar plataforma Android
+# Instalar plataformas
+# Android
 ionic cordova platform add android@14
+
+# iOS
+# ionic cordova platform add ios@8.0.1
 ```
 
 ## Ejecución
@@ -42,6 +46,9 @@ ionic serve
 
 # Ejecutar en Android (emulador/dispositivo)
 ionic cordova run android
+
+# Ejecutar en iOS
+# ionic cordova run ios
 ```
 
 ## Build
@@ -53,7 +60,10 @@ ionic cordova build android
 # Build Android (release)
 ionic cordova build android --release
 
-# Generar APK firmado
+# Build iOS (requiere Mac)
+# ionic cordova build ios
+
+# Generar APK firmado (Android)
 # Ubicación: platforms/android/app/build/outputs/apk/
 ```
 
@@ -76,8 +86,10 @@ src/app/
 └── tabs/                # Navegación por tabs
 
 platforms/
-└── android/            # Plataforma Android
-    └── app/build/outputs/apk/  # APKs generados
+├── android/            # Plataforma Android
+│   └── app/build/outputs/apk/  # APKs generados
+└── ios/                # Plataforma iOS (requiere Mac para generar IPA)
+    └── [IPA location when built]
 ```
 
 ## Arquitectura
@@ -87,37 +99,29 @@ platforms/
 - **Diseño mobile-first** optimizado para listas con 100+ items
 - **Lazy loading** de rutas para mejor rendimiento
 
-## Firebase (Pendiente)
+## Firebase & Remote Config
 
-La aplicación está preparada para Firebase Remote Config. Para configurar:
+La aplicación está configurada con Firebase y utiliza Remote Config para un feature flag que controla la visibilidad del botón de edición de tareas.
+
+### Configuración Inicial
 
 1. Crear proyecto en [Firebase Console](https://console.firebase.google.com)
-2. Agregar app web
-3. Habilitar Remote Config
-4. Configurar credenciales en `src/environments/`
+2. Agregar app web al proyecto
+3. Habilitar Remote Config en el menú izquierdo
+4. Las credenciales ya están configuradas en `src/environments/environment.ts` y `src/environments/environment.prod.ts`
 
-## Troubleshooting
+### Prueba del Feature Flag
 
-### Build Gradle falla
+Para verificar el funcionamiento del feature flag `show_edit_button`:
 
-```bash
-# Limpiar caché de Gradle
-rm -rf ~/.gradle/caches ~/.gradle/daemon
-rm -rf platforms/android/.gradle platforms/android/build
+1. Acceder a Firebase Console > Proyecto > Remote Config
+2. Asegurarse de que exista el parámetro `show_edit_button` (tipo: Booleano)
+3. Cambiar el valor a `true` para mostrar el botón de edición o `false` para ocultarlo
+4. Click en "Publicar cambios"
+5. Recargar la aplicación (o hacer pull-to-refresh si se ejecuta en dispositivo)
+6. Verificar que el botón de edición aparece/desaparece según el valor configurado
 
-# Regenerar plataforma
-ionic cordova platform remove android
-ionic cordova platform add android@14
-ionic cordova build android
-```
-
-### Error: Gradle 4.4.1 no es compatible
-
-```bash
-# Verificar que Gradle 8.7 esté en el PATH
-export PATH=~/Descargas/gradle-8.7/bin:$PATH
-gradle --version  # Debe mostrar Gradle 8.7.x
-```
+El feature flag está implementado en `src/app/core/services/config.service.ts` y consumido en `src/app/home/home.page.html` para controlar la visibilidad del botón de edición de tareas.
 
 ## Licencia
 

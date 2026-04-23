@@ -13,8 +13,8 @@ import {
   IonContent,
   IonButtons,
 } from '@ionic/angular/standalone';
-import { CategoryService } from '../../services/category.service';
-import { TaskService } from '../../services/task.service';
+import { CategoryService } from '../../core/services/category.service';
+import { TaskService } from '../../core/services/task.service';
 import { Task } from '../../models/task.model';
 import { Category } from '../../models/category.model';
 import { FormModalComponent } from '../form-modal/form-modal.component';
@@ -26,7 +26,21 @@ import { inject } from '@angular/core';
   selector: 'app-task-form',
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.scss'],
-  imports: [IonInput, IonIcon, IonButton, IonList, IonItem, IonLabel, IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, FormModalComponent],
+  imports: [
+    IonInput,
+    IonIcon,
+    IonButton,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonModal,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButtons,
+    FormModalComponent,
+  ],
 })
 export class TaskFormComponent {
   private categoryService = inject(CategoryService);
@@ -81,7 +95,10 @@ export class TaskFormComponent {
 
   onSave(): void {
     if (!this.isSaveDisabled()) {
-      this.save.emit({ title: this.title().trim(), categoryId: this.categoryId() });
+      this.save.emit({
+        title: this.title().trim(),
+        categoryId: this.categoryId(),
+      });
     }
   }
 
