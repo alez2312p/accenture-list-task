@@ -60,8 +60,8 @@ ionic cordova build android
 # Build Android (release)
 ionic cordova build android --release
 
-# Build iOS (requiere Mac)
-# ionic cordova build ios
+# Build iOS
+ionic cordova build ios
 
 # Generar APK firmado (Android)
 # Ubicación: platforms/android/app/build/outputs/apk/
