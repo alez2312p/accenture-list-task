@@ -140,12 +140,12 @@ Para producción con almacenamiento de datos en Firebase, se recomendaría:
 
 ### Android (APK)
 El archivo ejecutable se generó localmente utilizando el SDK de Android 35+.
-- **Ubicación del artefacto:** `https://drive.google.com/file/d/1rOah_tEOc0urmnpacOIhK6I4xIwgQM6j/view?usp=drive_link`
+- **Ubicación del artefacto:** `[APK](https://drive.google.com/file/d/1rOah_tEOc0urmnpacOIhK6I4xIwgQM6j/view?usp=drive_link`
 
 ### iOS (Appflow CI/CD)
 Debido a la naturaleza de la prueba y la gestión de infraestructura escalable, la compilación de iOS se realizó mediante **Ionic Appflow** (Cloud Build). Esto permitió validar la compatibilidad del código con entornos macOS (Apple Silicon) y Xcode 26.
 - **Tipo de Build:** Simulator (Arquitectura arm64).
-- **Ubicación del artefacto:** `https://drive.google.com/file/d/1OpjDM_xpnbxlFByXhQShYZfHE_ensGNW/view?usp=drive_link`
+- **Ubicación del artefacto:** `[APP](https://drive.google.com/file/d/1OpjDM_xpnbxlFByXhQShYZfHE_ensGNW/view?usp=drive_link)`
 - **Instrucciones:** Para ejecutarlo, descomprima el archivo y arrastre el contenido `.app` hacia un simulador de iPhone con iOS 17+.
 
 ---
