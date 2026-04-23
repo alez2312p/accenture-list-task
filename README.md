@@ -48,7 +48,7 @@ ionic serve
 ionic cordova run android
 
 # Ejecutar en iOS
-# ionic cordova run ios
+ionic cordova run ios
 ```
 
 ## Build
@@ -135,6 +135,36 @@ En esta implementación:
 Para producción con almacenamiento de datos en Firebase, se recomendaría:
 - Revisar y ajustar las Firebase Rules siguiendo el principio de privilegio mínimo
 - Considerar Firebase App Check para validar que solo tu aplicación acceda a los recursos
+
+## Entregables Móviles (Builds)
+
+### Android (APK)
+El archivo ejecutable se generó localmente utilizando el SDK de Android 35+.
+- **Ubicación del artefacto:** `https://drive.google.com/file/d/1rOah_tEOc0urmnpacOIhK6I4xIwgQM6j/view?usp=drive_link`
+
+### iOS (Appflow CI/CD)
+Debido a la naturaleza de la prueba y la gestión de infraestructura escalable, la compilación de iOS se realizó mediante **Ionic Appflow** (Cloud Build). Esto permitió validar la compatibilidad del código con entornos macOS (Apple Silicon) y Xcode 26.
+- **Tipo de Build:** Simulator (Arquitectura arm64).
+- **Ubicación del artefacto:** `https://drive.google.com/file/d/1OpjDM_xpnbxlFByXhQShYZfHE_ensGNW/view?usp=drive_link`
+- **Instrucciones:** Para ejecutarlo, descomprima el archivo y arrastre el contenido `.app` hacia un simulador de iPhone con iOS 17+.
+
+---
+
+## Respuestas al Cuestionario Técnico
+
+### 1. ¿Cuáles fueron los principales desafíos que enfrentaste al implementar las nuevas funcionalidades?
+* **Sincronización de Feature Flags:** El manejo de la asincronía al recuperar valores de Firebase Remote Config durante el bootstrap de la aplicación. Se resolvió mediante el uso de un servicio dedicado (`ConfigService`).
+* **Compatibilidad de Compilación:** La resolución del error de target de `macCatalyst` en entornos Xcode modernos (v26). Fue necesario ajustar manualmente el `deployment-target` a 14.0 en el `config.xml` para alinear las dependencias de Angular 20 con el entorno de compilación de Apple.
+
+### 2. ¿Qué técnicas de optimización de rendimiento aplicaste y por qué?
+* **TrackBy Strategy:** Implementado en todos los ciclos `*for` para evitar el re-renderizado total del DOM al actualizar una tarea, lo cual es crítico para la fluidez en listas de gran tamaño.
+* **Lazy Loading & Standalone Components:** Se eliminaron los módulos pesados en favor de componentes independientes, reduciendo el *bundle size* inicial y acelerando el tiempo de carga en dispositivos móviles con redes limitadas.
+* **Signals API:** Uso de Signals para la gestión de estado local, minimizando las detecciones de cambio globales y mejorando la respuesta táctil de la aplicación.
+
+### 3. ¿Cómo aseguraste la calidad y mantenibilidad del código?
+* **Arquitectura Clean/Modular:** Separación clara entre lógica de negocio (`services`), definición de datos (`models`) y presentación (`components/pages`).
+* **Tipado Estricto:** Uso riguroso de interfaces de TypeScript para prevenir errores en tiempo de compilación y facilitar futuras extensiones.
+* **Inyección de Dependencias:** Uso de la función `inject()` de Angular para una gestión de dependencias más limpia y legible, acorde a los estándares de desarrollo de 2026.
 
 ## Licencia
 
